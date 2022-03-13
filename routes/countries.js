@@ -1,4 +1,6 @@
 const express = require("express");
+const { auth } = require("../passport");
+const { adminGuard } = require("../middlewares/guard");
 
 const router = express.Router();
 
@@ -20,11 +22,11 @@ let countries = [
   },
 ];
 
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   res.status(200).send(countries);
 });
 
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const name = req.body.name;
   const capital = req.body.capital;
   const population = req.body.population;
@@ -35,7 +37,7 @@ router.post("/", (req, res) => {
   res.status(201).send(countries);
 });
 
-router.put("/:name", (req, res) => {
+router.put("/:name", auth, (req, res) => {
   let qname = req.params.name;
   let name = req.body.name;
   let capital = req.body.capital;
@@ -54,7 +56,7 @@ router.put("/:name", (req, res) => {
   res.status(200).send(countries);
 });
 
-router.delete("/:name", (req, res) => {
+router.delete("/:name", auth, adminGuard, (req, res) => {
   let index = countries.findIndex((c) => c.name === req.params.name);
 
   if (index === -1) {
