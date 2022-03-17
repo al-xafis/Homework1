@@ -1,4 +1,4 @@
-const { getUserByUsername } = require("../database");
+const { getUserByUsername } = require("../utils");
 
 function adminGuard(req, res, next) {
   let user = getUserByUsername(req.user.username);

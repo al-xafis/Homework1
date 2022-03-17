@@ -1,5 +1,5 @@
 const passport = require("passport");
-const { getUserByUsername } = require("./database");
+const { getUserByUsername } = require("./utils");
 
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;

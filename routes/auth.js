@@ -1,7 +1,7 @@
 const express = require("express");
 const { auth } = require("../passport");
 const { adminGuard } = require("../middlewares/guard");
-const { users, loginUser, registerUser } = require("../database");
+const { users, loginUser, registerUser } = require("../utils");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
