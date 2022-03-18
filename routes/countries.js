@@ -1,70 +1,59 @@
 const express = require("express");
 const { auth } = require("../passport");
 const { adminGuard } = require("../middlewares/guard");
+const Country = require("../models/countries");
 
 const router = express.Router();
 
-let countries = [
-  {
-    name: "Uzbekistan",
-    capital: "Tashkent",
-    population: 34_000_000,
-  },
-  {
-    name: "Belarus",
-    capital: "Minsk",
-    population: 9_000_000,
-  },
-  {
-    name: "Australia",
-    capital: "Canberra",
-    population: 25_000_000,
-  },
-];
-
-router.get("/", auth, (req, res) => {
+router.get("/", auth, async (req, res) => {
+  let countries = await Country.find();
   res.status(200).send(countries);
 });
 
-router.post("/", auth, (req, res) => {
+router.post("/", auth, async (req, res) => {
   const name = req.body.name;
   const capital = req.body.capital;
   const population = req.body.population;
-  const resultObj = { name, capital, population };
 
-  countries.push(resultObj);
-
-  res.status(201).send(countries);
+  try {
+    await Country.create({ name, capital, population });
+    res.status(201).send("Country created");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
 });
 
-router.put("/:name", auth, (req, res) => {
+router.put("/:name", auth, async (req, res) => {
   let qname = req.params.name;
   let name = req.body.name;
   let capital = req.body.capital;
   let population = req.body.population;
 
   let resultObj = { name, capital, population };
-  let index = countries.findIndex((c) => c.name === qname);
-
-  if (index === -1) {
-    res.status(404).send("No such country in the list");
-    return;
+  try {
+    await Country.updateOne({ name: qname }, resultObj, {
+      upsert: true,
+    });
+    res.status(200).send("Updated");
+  } catch (err) {
+    res.status(400).json(err);
   }
-
-  countries[index] = resultObj;
-
-  res.status(200).send(countries);
 });
 
-router.delete("/:name", auth, adminGuard, (req, res) => {
-  let index = countries.findIndex((c) => c.name === req.params.name);
+router.delete("/:name", auth, adminGuard, async (req, res) => {
+  try {
+    const country = await Country.findOne({ name: req.params.name });
 
-  if (index === -1) {
-    res.status(404).send("No such country in the list");
-    return;
+    if (country) {
+      await Country.deleteOne({ name: req.params.name });
+      res.status(200).send("Deleted");
+    } else {
+      res.status(400).send("No such country");
+    }
+  } catch (err) {
+    res.status(400).json(err);
   }
-  countries.splice(index, 1);
-  res.status(202).send(countries);
 });
 
 module.exports = router;

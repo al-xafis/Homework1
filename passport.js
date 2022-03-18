@@ -1,5 +1,5 @@
 const passport = require("passport");
-const { getUserByUsername } = require("./utils");
+const User = require("./models/users");
 
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
@@ -10,8 +10,8 @@ const opts = {
 };
 
 passport.use(
-  new JwtStrategy(opts, (jwt_payload, done) => {
-    let user = getUserByUsername(jwt_payload.username);
+  new JwtStrategy(opts, async (jwt_payload, done) => {
+    let user = await User.findOne({ username: jwt_payload.username });
 
     if (user) {
       return done(null, user);
