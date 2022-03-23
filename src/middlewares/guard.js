@@ -1,7 +1,8 @@
-const { getUserByUsername } = require("../utils");
+const User = require("../models/users");
 
-function adminGuard(req, res, next) {
-  let user = getUserByUsername(req.user.username);
+async function adminGuard(req, res, next) {
+  let user = await User.findOne({ username: req.user.username });
+
   if (user && user.role.toLowerCase() === "admin") {
     next();
   } else {
