@@ -2,5 +2,5 @@ server/node_modules/
 server/.DS_Store
 server/package-lock.json
 server/.env
-
+.DS_Store
 
