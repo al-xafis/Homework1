@@ -39,16 +39,20 @@ router.post("/register", async (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       password: bcrypt.hashSync(req.body.password, 10),
+
       role: req.body.role,
     });
     res.status(201).json(user);
   } catch (err) {
     console.log(err);
+
     res.status(400).json(err);
   }
 });
 
+
 router.get("/users", auth, async (req, res) => {
+
   try {
     const users = await User.find();
     res.status(200).json(users);
