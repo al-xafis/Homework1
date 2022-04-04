@@ -1,6 +1,48 @@
-/node_modules/
+server/node_modules/
+server/.DS_Store
+server/package-lock.json
+server/.env
 .DS_Store
-package-lock.json
-.env
 
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Compiled output
+client/budgetify/dist
+client/budgetify/tmp
+client/budgetify/out-tsc
+client/budgetify/bazel-out
+
+# Node
+client/budgetify/node_modules
+client/budgetify/npm-debug.log
+client/budgetify/yarn-error.log
+
+# IDEs and editors
+client/budgetify/.idea/
+client/budgetify/.project
+client/budgetify/.classpath
+client/budgetify/.c9/
+client/budgetify/*.launch
+client/budgetify/.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+client/budgetify/.vscode/*
+client/budgetify/!.vscode/settings.json
+client/budgetify/!.vscode/tasks.json
+client/budgetify/!.vscode/launch.json
+client/budgetify/!.vscode/extensions.json
+client/budgetify/.history/*
+
+# Miscellaneous
+client/budgetify/.angular/cache
+client/budgetify/.sass-cache/
+client/budgetify/connect.lock
+client/budgetify/coverage
+client/budgetify/libpeerconnection.log
+client/budgetify/testem.log
+client/budgetify/typings
+
+# System files
+client/budgetify/.DS_Store
+client/budgetify/Thumbs.db

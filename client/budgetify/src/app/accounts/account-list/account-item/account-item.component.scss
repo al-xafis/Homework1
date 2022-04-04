@@ -1,0 +1,49 @@
+.account {
+  margin-bottom: 40px;
+  position: relative;
+  background: url("../../../../assets/cardbgreal.jpg");
+  background-size: cover;
+  width: 320px;
+  height: 160px;
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.25);
+  &__info {
+    padding: 22px;
+  }
+  &__title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+  &__amount {
+    color: #f8f8f8;
+    font-size: 35px;
+  }
+  &__currency__container {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    width: 72px;
+    height: 72px;
+    background-color: #fff;
+    border-radius: 50%;
+  }
+
+  &__details {
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    font-size: 15px;
+  }
+}
+
+.currency {
+  font-size: 45px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #d376d7;
+}

@@ -1,0 +1,43 @@
+<section class="login__section">
+  <div class="login__container">
+    <form class="login__form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <h1 class="login__form__title">Budgetify</h1>
+      <div class="login__form__email">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+          <mat-error
+            *ngIf="
+              loginForm.get('email').touched &&
+              loginForm.get('email')?.errors?.['required']
+            "
+            >Required field is empty</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('email').errors?.['pattern']"
+            >Please enter a valid email address</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="login__form__password">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your password</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error
+            *ngIf="loginForm.get('password').touched && loginForm.get('password').errors?.['required']"
+            >Password field is empty</mat-error
+          >
+          <!-- <button type="button" mat-icon-button matSuffix>
+            <mat-icon>visibility</mat-icon>
+          </button> -->
+        </mat-form-field>
+      </div>
+      <button
+        class="login__button"
+        type="submit"
+        [disabled]="loginForm.get('password').errors?.['required'] || loginForm.get('email').errors?.['pattern'] || loginForm.get('email')?.errors?.['required']"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</section>
