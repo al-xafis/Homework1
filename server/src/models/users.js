@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const Account = require("./accounts");
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    email: {
       type: String,
       required: true,
       unique: true,
@@ -11,11 +12,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
+
+    firstName: {
+      type: String,
       required: true,
-      min: 14,
-      max: 120,
+    },
+    lastName: {
+      type: String,
+      required: true,
+
     },
     role: {
       type: String,
@@ -24,6 +29,7 @@ const userSchema = new mongoose.Schema(
         validator: (v) => v === "ADMIN" || v === "USER",
       },
     },
+    accounts: [Account],
   },
   {
     timestamps: true,

@@ -1,0 +1,42 @@
+<h2 mat-dialog-title class="dialog__title">Create Account</h2>
+<form (ngSubmit)="onSubmit()" [formGroup]="accountCreateForm">
+  <mat-dialog-content class="mat-typography" class="account__form">
+    <div class="account__form__title">
+      <mat-form-field class="account__form__title__input" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+    </div>
+    <div class="account__form__currency">
+      <mat-form-field class="account__form__currency__input" appearance="fill">
+        <mat-label>Currency</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option value="USD">USD ($)</mat-option>
+          <mat-option value="EUR">EUR (€)</mat-option>
+          <mat-option value="RUB">RUB (₽)</mat-option>
+          <mat-option value="RUB">BYN (Br)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="account__form__description">
+      <mat-form-field
+        class="account__form__description__input"
+        appearance="fill"
+      >
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="close-button" mat-button mat-dialog-close>Cancel</button>
+    <button
+      type="submit"
+      class="create-button"
+      mat-button
+      [mat-dialog-close]="true"
+    >
+      Create
+    </button>
+  </mat-dialog-actions>
+</form>

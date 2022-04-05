@@ -1,0 +1,6 @@
+<app-account-item
+  *ngFor="let account of accounts"
+  [account]="account"
+  [accountLength]="accounts?.length"
+></app-account-item>
+<app-account-item-dummy *ngIf="accounts?.length < 1"></app-account-item-dummy>
