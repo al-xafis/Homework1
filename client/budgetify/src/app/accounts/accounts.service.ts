@@ -7,7 +7,8 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AccountsService {
-  private accounts: any = [];
+  accounts: Account[] = [];
+  accountsLength = new Subject<number>();
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +21,10 @@ export class AccountsService {
         description,
       }
     );
+  }
+
+  getAccountLength(length: number) {
+    this.accountsLength.next(length);
   }
 
   fetchAccounts(): Observable<Account[]> {

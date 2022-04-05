@@ -21,6 +21,7 @@ export class AccountListComponent implements OnInit {
   ngOnInit(): void {
     this.accountsService.fetchAccounts().subscribe((accounts) => {
       this.accounts = accounts;
+      this.accountsService.getAccountLength(this.accounts.length);
     });
   }
 }
