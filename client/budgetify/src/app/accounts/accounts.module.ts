@@ -5,7 +5,6 @@ import { AccountItemComponent } from './account-list/account-item/account-item.c
 import { AccountListComponent } from './account-list/account-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AccountCreateDialogComponent } from './account-list/account-item/account-create-dialog/account-create-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountItemDummyComponent } from './account-list/account-item-dummy/account-item-dummy.component';
 
@@ -14,7 +13,6 @@ import { AccountItemDummyComponent } from './account-list/account-item-dummy/acc
     AccountsComponent,
     AccountListComponent,
     AccountItemComponent,
-    AccountCreateDialogComponent,
     AccountItemDummyComponent,
   ],
   imports: [CommonModule, SharedModule, MatDialogModule, MatSelectModule],

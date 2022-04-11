@@ -1,0 +1,40 @@
+<div class="transaction">
+  <div class="transaction__info">
+    <div class="transaction__info__category">
+      <h2 class="transaction__info__category__title">
+        {{ transaction.category[0] }}
+      </h2>
+    </div>
+    <div class="transaction__info__details">
+      <h3 class="transaction__info__details__title">{{ transaction.title }}</h3>
+      <div class="transaction__info__details__box">
+        <div
+          class="transaction__info__details__box__circle"
+          *ngIf="transaction.type === 'Expense'"
+        >
+          <img src="../../../assets/Arrowup.svg" alt="expense" />
+        </div>
+        <div
+          class="transaction__info__details__box__circle income"
+          *ngIf="transaction.type === 'Income'"
+        >
+          <img src="../../../assets/Arrowdown.svg" alt="expense" />
+        </div>
+        <p class="transaction__info__details__box__description">
+          {{ transaction.type }} &nbsp;&middot;&nbsp;
+          {{ transaction.date | date: "dd.MM.yyyy" }} &nbsp;&middot;&nbsp;
+          {{ transaction.payee }}
+        </p>
+      </div>
+    </div>
+    <p class="transaction__info__amount" *ngIf="transaction.type === 'Expense'">
+      -{{ transaction.amount }}$
+    </p>
+    <p
+      class="transaction__info__amount income-amount"
+      *ngIf="transaction.type === 'Income'"
+    >
+      +{{ transaction.amount }}$
+    </p>
+  </div>
+</div>

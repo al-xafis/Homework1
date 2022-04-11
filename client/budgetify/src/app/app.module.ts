@@ -11,6 +11,9 @@ import { MainModule } from './main/main.module';
 // import { AccountsComponent } from './accounts/accounts.component';
 import { AccountsModule } from './accounts/accounts.module';
 import { FirstComponent } from './first/first.component';
+import { TransactionsModule } from './transactions/transactions.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, FirstComponent],
@@ -23,8 +26,15 @@ import { FirstComponent } from './first/first.component';
     LayoutModule,
     MainModule,
     AccountsModule,
+    TransactionsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

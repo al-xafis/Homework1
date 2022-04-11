@@ -1,6 +1,7 @@
 @use "src/variables" as var;
 header {
-  margin-bottom: 70px;
+  padding-bottom: 70px;
+  background-color: var.$background;
 }
 
 .navbar {

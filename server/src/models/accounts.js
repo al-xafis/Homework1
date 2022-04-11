@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Transaction = require("./transactions");
 
 const accountSchema = new mongoose.Schema(
   {
@@ -9,7 +10,7 @@ const accountSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
-      required: true,
+      default: 0,
     },
     currency: {
       type: String,
@@ -18,6 +19,10 @@ const accountSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+    },
+    transactions: {
+      type: [Transaction],
+      default: [],
     },
   },
   {

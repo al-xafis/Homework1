@@ -22,7 +22,10 @@ router.post("/login", async (req, res) => {
       res.status(200).json({
         email: user.email,
         token: `Bearer ${token}`,
-        expiresIn: 10 * 60 * 1000,
+        expiresIn: 3600 * 1000,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
       });
     } else {
       res.status(401).json({ message: "Incorrect email or password" });
@@ -50,9 +53,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-
 router.get("/users", auth, async (req, res) => {
-
   try {
     const users = await User.find();
     res.status(200).json(users);

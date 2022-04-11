@@ -1,6 +1,19 @@
 <app-account-item
-  *ngFor="let account of accounts"
+  *ngFor="let account of accounts; let i = index"
   [account]="account"
   [accountLength]="accounts?.length"
+  [selectedAccount]="selectedAccount"
+  (click)="selectAccount(account)"
 ></app-account-item>
 <app-account-item-dummy *ngIf="accounts?.length < 1"></app-account-item-dummy>
+
+<!-- <div class="account" *ngFor="let account of accounts">
+  <div class="account__wrapper">
+    <div class="account__info">
+      <h2 class="account__title">{{ account.title }}</h2>
+      <h2 class="account__amount">{{ account.amount }}</h2>
+    </div>
+    <div class="account__currency__container"><p class="currency">$</p></div>
+    <div class="account__details"><p>See details</p></div>
+  </div>
+</div> -->

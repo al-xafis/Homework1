@@ -1,0 +1,19 @@
+@use "src/variables" as var;
+
+.search__wrapper {
+  .search__field {
+    width: 100%;
+  }
+
+  input {
+    border: none;
+    color: var.$black;
+    font-size: 16px;
+  }
+
+  ::ng-deep .mat-form-field-outline {
+    background: #f9f9f9;
+    border-radius: 10px;
+    // color: red;
+  }
+}

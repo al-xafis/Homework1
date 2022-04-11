@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AccountCreateDialogComponent } from '../account-item/account-create-dialog/account-create-dialog.component';
+import { MainService } from 'src/app/main/main.service';
 
 @Component({
   selector: 'app-account-item-dummy',
@@ -8,11 +7,11 @@ import { AccountCreateDialogComponent } from '../account-item/account-create-dia
   styleUrls: ['./account-item-dummy.component.scss'],
 })
 export class AccountItemDummyComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  constructor(private mainService: MainService) {}
 
   ngOnInit(): void {}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(AccountCreateDialogComponent);
+  openAccCreateSidebar() {
+    this.mainService.accountCreateSidebarOpen();
   }
 }

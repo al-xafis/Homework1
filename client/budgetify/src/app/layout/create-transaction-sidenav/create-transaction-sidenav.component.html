@@ -1,0 +1,120 @@
+<aside class="sidebar">
+  <div class="sidebar__container">
+    <header>
+      <h1 class="sidebar__title">Create Transaction</h1>
+    </header>
+    <form
+      class="sidebar__form"
+      (ngSubmit)="Submit()"
+      [formGroup]="transactionCreateForm"
+    >
+      <div class="sidebar__form__transaction">
+        <mat-button-toggle-group
+          name="transactionType"
+          aria-label="Transaction Type"
+          formControlName="type"
+        >
+          <mat-button-toggle value="Expense"
+            ><div class="sidebar__form__transaction__circle">
+              <img src="../../../assets/Arrowup.svg" alt="expense" />
+            </div>
+            Expense</mat-button-toggle
+          >
+          <mat-button-toggle value="Income"
+            ><div class="sidebar__form__transaction__circle--income">
+              <img src="../../../assets/Arrowdown.svg" alt="income" />
+            </div>
+            Income</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </div>
+      <div class="sidebar__form__title">
+        <mat-form-field
+          class="sidebar__form__title__input"
+          appearance="outline"
+        >
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__categories">
+        <mat-form-field appearance="outline">
+          <mat-label>Categories</mat-label>
+          <mat-select formControlName="categories" multiple>
+            <mat-select-trigger>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="
+                    let category of this.transactionCreateForm.value.categories
+                  "
+                  [removable]="true"
+                  (removed)="onToppingRemoved(category)"
+                >
+                  {{ category }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-select-trigger>
+
+            <mat-option
+              *ngFor="let category of categoryList"
+              [value]="category"
+              >{{ category }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__amount">
+        <mat-form-field
+          class="sidebar__form__amount__input"
+          appearance="outline"
+        >
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="amount" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__date">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input
+            matInput
+            formControlName="date"
+            [matDatepicker]="picker"
+            [max]="today"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__payee">
+        <mat-form-field
+          class="sidebar__form__payee__input"
+          appearance="outline"
+        >
+          <mat-label>Payee</mat-label>
+          <input matInput formControlName="payee" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__description">
+        <mat-form-field
+          class="sidebar__form__description__input"
+          appearance="outline"
+        >
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__buttons">
+        <button (click)="closeSidebar()" class="sidebar__form__buttons__cancel">
+          Cancel
+        </button>
+        <button type="submit" class="sidebar__form__buttons__create">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</aside>

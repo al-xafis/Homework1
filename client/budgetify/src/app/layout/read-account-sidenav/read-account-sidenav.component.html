@@ -1,0 +1,30 @@
+<aside class="sidebar">
+  <div class="sidebar__container">
+    <header>
+      <h1 class="sidebar__title">Account Information</h1>
+    </header>
+    <div class="sidebar__details">
+      <div class="sidebar__details__title__box">
+        <p class="sidebar__details__label__title">Title:</p>
+        <p class="sidebar__details__title">{{ account.title }}</p>
+      </div>
+      <div class="sidebar__details__balance__box">
+        <p class="sidebar__details__label__balance">Balance:</p>
+        <p class="sidebar__details__balance">{{ account.amount }}</p>
+      </div>
+      <div class="sidebar__details__currency__box">
+        <p class="sidebar__details__label__currency">Currency:</p>
+        <p class="sidebar__details__currency">{{ currency }}</p>
+      </div>
+      <div class="sidebar__details__description__box">
+        <p class="sidebar__details__label__description">Description:</p>
+        <p class="sidebar__details__description">
+          {{ account.description }}
+        </p>
+      </div>
+    </div>
+    <button class="sidebar__button__cancel" (click)="closeSidebar()">
+      Cancel
+    </button>
+  </div>
+</aside>

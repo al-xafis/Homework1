@@ -1,6 +1,37 @@
 <div class="section__main">
   <div class="container">
     <app-accounts></app-accounts>
+    <div class="transactions">
+      <app-search-transaction
+        *ngIf="transactionLength > 0"
+      ></app-search-transaction>
+      <app-transaction-list></app-transaction-list>
+    </div>
+    <div class="controls">
+      <div class="controls__container" *ngIf="accountLength > 0">
+        <app-add-control
+          [label]="addTransaction"
+          (click)="openSidebar()"
+        ></app-add-control>
+        <app-add-control
+          [label]="addAccount"
+          (click)="openAccCreateSidebar()"
+        ></app-add-control>
+      </div>
+    </div>
   </div>
-  <app-add-card-button></app-add-card-button>
+  <app-create-transaction-sidenav *ngIf="open"></app-create-transaction-sidenav>
+  <app-create-account-sidenav
+    *ngIf="accountCreateOpen"
+  ></app-create-account-sidenav>
+  <app-read-account-sidenav *ngIf="accountReadOpen"></app-read-account-sidenav>
+  <div (click)="closeSidebar()" [ngClass]="open ? 'dark-overlay' : ''"></div>
+  <div
+    (click)="closeAccCreateSidebar()"
+    [ngClass]="accountCreateOpen ? 'dark-overlay' : ''"
+  ></div>
+  <div
+    (click)="closeAccReadSidebar()"
+    [ngClass]="accountReadOpen ? 'dark-overlay' : ''"
+  ></div>
 </div>

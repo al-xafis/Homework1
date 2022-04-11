@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { BehaviorSubject, Subject, tap } from 'rxjs';
 interface loginResponse {
   email: string;
   token: string;
+  expiresIn: string;
+  firstName: string;
+  lastName: string;
 }
 
 @Injectable({
@@ -30,12 +33,14 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('user');
     localStorage.removeItem('expiresIn');
     localStorage.removeItem('idToken');
   }
 
   private setSession(res: any) {
     const expiresIn = Date.now() + Number(res.expiresIn);
+    localStorage.setItem('user', JSON.stringify(res));
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
   }
