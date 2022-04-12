@@ -26,8 +26,8 @@ export class AccountListComponent implements OnInit, OnDestroy {
       });
     this.selectedAccountSubscription = this.accountsService
       .getSelectedAccount()
-      .subscribe((data) => {
-        this.selectedAccount = data;
+      .subscribe((account) => {
+        this.selectedAccount = account;
       });
   }
 
@@ -38,5 +38,9 @@ export class AccountListComponent implements OnInit, OnDestroy {
 
   selectAccount(account: Account) {
     this.accountsService.selectAccount(account);
+  }
+
+  trackByFn(index: number, account: Account) {
+    return account.amount;
   }
 }

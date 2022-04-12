@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MainService } from 'src/app/main/main.service';
 import { Account } from '../../accounts.model';
+import { AccountsService } from '../../accounts.service';
 
 @Component({
   selector: 'app-account-item',
@@ -13,10 +13,15 @@ export class AccountItemComponent implements OnInit {
   @Input() accountLength!: number;
   @Input() selectedAccount!: Account;
   currency!: string;
+  amount!: string;
 
-  constructor(private mainService: MainService) {}
+  constructor(
+    private mainService: MainService,
+    private accountsService: AccountsService
+  ) {}
 
   ngOnInit(): void {
+    this.amount = this.numberWithCommas(this.account.amount!);
     switch (this.account.currency) {
       case 'USD':
         this.currency = '$';
@@ -31,6 +36,10 @@ export class AccountItemComponent implements OnInit {
         this.currency = 'Br';
         break;
     }
+  }
+
+  numberWithCommas(amount: number) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   openAccountDetails() {

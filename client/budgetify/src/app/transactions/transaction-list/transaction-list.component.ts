@@ -1,5 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { delay, exhaustMap, map, switchMap, take, takeWhile } from 'rxjs';
+import {
+  catchError,
+  delay,
+  exhaustMap,
+  map,
+  Observable,
+  of,
+  retry,
+  switchMap,
+  take,
+  takeUntil,
+  takeWhile,
+  tap,
+} from 'rxjs';
 import { Account } from 'src/app/accounts/accounts.model';
 import { AccountsService } from 'src/app/accounts/accounts.service';
 import { Transaction } from '../transactions.model';
@@ -11,7 +24,7 @@ import { TransactionsService } from '../transactions.service';
   styleUrls: ['./transaction-list.component.scss'],
 })
 export class TransactionListComponent implements OnInit {
-  transactions: Transaction[] = [];
+  transactions: Transaction[] | null = [];
   selectedAccount!: Account;
   title!: string;
 
@@ -24,22 +37,24 @@ export class TransactionListComponent implements OnInit {
     // this.accountService
     //   .getSelectedAccount()
     //   .pipe(
-    //     exhaustMap((account) =>
+    //     switchMap((account) =>
     //       this.transactionService.getTransactions(account?.title)
     //     )
     //   )
     //   .subscribe((transactions) => {
     //     this.transactions = transactions;
     //   });
-
     this.accountService
       .getSelectedAccount()
       .pipe(
-        switchMap((account) =>
-          this.transactionService.getTransactions(account?.title)
-        )
+        switchMap((account) => {
+          if (account) {
+            return this.transactionService.getTransactions(account?.title);
+          }
+          return of(null);
+        })
       )
-      .subscribe((transactions) => {
+      .subscribe((transactions: Transaction[] | null) => {
         this.transactions = transactions;
       });
   }

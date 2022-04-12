@@ -5,7 +5,8 @@ import { TransactionsService } from 'src/app/transactions/transactions.service';
 import { Transaction } from 'src/app/transactions/transactions.model';
 import { AccountsService } from 'src/app/accounts/accounts.service';
 import { Account } from 'src/app/accounts/accounts.model';
-import { Subscription } from 'rxjs';
+import { share, shareReplay, Subscription, take, tap } from 'rxjs';
+import Decimal from 'decimal.js';
 
 @Component({
   selector: 'app-create-transaction-sidenav',
@@ -123,9 +124,25 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
 
     this.transactionsSevice
       .createTransaction(newTransaction)
-      .subscribe((data) => {
-        console.log(this.transactionCreateForm);
-        console.log(data);
+      .pipe(
+        take(1),
+        tap((data) => {
+          if (newTransaction.type === 'Income') {
+            this.selectedAccount.amount = new Decimal(
+              this.selectedAccount.amount!
+            )
+              .plus(newTransaction.amount)
+              .toNumber();
+          } else if (newTransaction.type === 'Expense') {
+            this.selectedAccount.amount = new Decimal(
+              this.selectedAccount.amount!
+            )
+              .minus(newTransaction.amount)
+              .toNumber();
+          }
+        })
+      )
+      .subscribe(() => {
         this.transactionCreateForm.reset();
         this.mainService.sidebarClose();
       });

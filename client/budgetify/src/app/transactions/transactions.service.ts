@@ -1,6 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, delay, retry, Subject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  delay,
+  retry,
+  share,
+  shareReplay,
+  Subject,
+  tap,
+} from 'rxjs';
 import { Account } from '../accounts/accounts.model';
 import { AccountsService } from '../accounts/accounts.service';
 import { Transaction } from './transactions.model';
@@ -39,6 +48,7 @@ export class TransactionsService {
       )
       .pipe(
         tap((data) => {
+          console.log('shoot');
           console.log(data);
           this.transactions.push(newTransaction);
           this.transactionsChanged$.next(this.transactions.slice());
