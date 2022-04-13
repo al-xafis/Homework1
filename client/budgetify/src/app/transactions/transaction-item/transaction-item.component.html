@@ -1,4 +1,4 @@
-<div class="transaction">
+<div class="transaction" (click)="openTransactionDetails()">
   <div class="transaction__info">
     <div class="transaction__info__category">
       <h2 class="transaction__info__category__title">
@@ -28,13 +28,13 @@
       </div>
     </div>
     <p class="transaction__info__amount" *ngIf="transaction.type === 'Expense'">
-      -{{ transaction.amount }}$
+      -{{ amount }}{{ currency }}
     </p>
     <p
       class="transaction__info__amount income-amount"
       *ngIf="transaction.type === 'Income'"
     >
-      +{{ transaction.amount }}$
+      +{{ amount }}{{ currency }}
     </p>
   </div>
 </div>

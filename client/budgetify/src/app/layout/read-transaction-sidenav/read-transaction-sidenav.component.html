@@ -1,0 +1,75 @@
+<aside class="sidebar">
+  <div class="sidebar__container">
+    <header class="sidebar__header">
+      <h1 class="sidebar__header__title">Transaction Information</h1>
+      <div class="sidebar__header__controls">
+        <img class="edit-icon" src="../../../assets/pen.svg" alt="edit" />
+        <img class="delete-icon" src="../../../assets/trash.svg" alt="delete" />
+        <img class="close-icon" src="../../../assets/cross.svg" alt="close" />
+      </div>
+    </header>
+    <div class="sidebar__details">
+      <div class="sidebar__details__container">
+        <div class="flex" *ngIf="transaction.type === 'Expense'">
+          <div class="sidebar__details__container__type__circle">
+            <img src="../../../assets/Arrowup.svg" alt="expense" />
+          </div>
+          <p class="sidebar__details__container__type">Expense</p>
+        </div>
+        <div class="flex" *ngIf="transaction.type === 'Income'">
+          <div class="sidebar__details__container__type__circle income">
+            <img src="../../../assets/Arrowdown.svg" alt="income" />
+          </div>
+          <p class="sidebar__details__container__type">Income</p>
+        </div>
+        <p
+          class="sidebar__details__container__amount"
+          *ngIf="transaction.type === 'Expense'"
+        >
+          -{{ amount }}{{ currency }}
+        </p>
+        <p
+          class="sidebar__details__container__amount income-amount"
+          *ngIf="transaction.type === 'Income'"
+        >
+          +{{ amount }}{{ currency }}
+        </p>
+      </div>
+
+      <h2 class="sidebar__details__title">{{ transaction.title }}</h2>
+
+      <div class="sidebar__details__categories">
+        <div
+          class="sidebar__details__categories__item"
+          *ngFor="let category of transaction.category"
+        >
+          <h3>{{ category }}</h3>
+        </div>
+      </div>
+
+      <div class="sidebar__details__date__box">
+        <p class="sidebar__details__label__date">Payment Date:</p>
+        <p class="sidebar__details__date">
+          {{ transaction.date | date: "dd.MM.yyyy" }}
+        </p>
+      </div>
+      <div *ngIf="transaction.payee">
+        <div class="sidebar__details__payee__box">
+          <p class="sidebar__details__label__payee">Payee:</p>
+          <p class="sidebar__details__payee">{{ transaction.payee }}</p>
+        </div>
+      </div>
+      <div *ngIf="transaction.description">
+        <div class="sidebar__details__description__box">
+          <p class="sidebar__details__label__description">Description:</p>
+          <p class="sidebar__details__description">
+            {{ transaction.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="sidebar__button__cancel" (click)="closeSidebar()">
+      Cancel
+    </button>
+  </div>
+</aside>

@@ -34,20 +34,11 @@ export class TransactionListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.accountService
-    //   .getSelectedAccount()
-    //   .pipe(
-    //     switchMap((account) =>
-    //       this.transactionService.getTransactions(account?.title)
-    //     )
-    //   )
-    //   .subscribe((transactions) => {
-    //     this.transactions = transactions;
-    //   });
     this.accountService
       .getSelectedAccount()
       .pipe(
         switchMap((account) => {
+          this.selectedAccount = account;
           if (account) {
             return this.transactionService.getTransactions(account?.title);
           }

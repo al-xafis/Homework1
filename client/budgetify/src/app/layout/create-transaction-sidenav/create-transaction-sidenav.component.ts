@@ -61,7 +61,10 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
     this.transactionCreateForm = new FormGroup({
       type: new FormControl(this.selectedVal, Validators.required),
       title: new FormControl(null),
-      categories: new FormControl([], Validators.required),
+      categories: new FormControl(
+        [],
+        [Validators.required, Validators.minLength(1)]
+      ),
       amount: new FormControl(null, [Validators.required, Validators.min(1)]),
       date: new FormControl(null, Validators.required),
       payee: new FormControl(null),
@@ -122,30 +125,32 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
       description,
     };
 
-    this.transactionsSevice
-      .createTransaction(newTransaction)
-      .pipe(
-        take(1),
-        tap((data) => {
-          if (newTransaction.type === 'Income') {
-            this.selectedAccount.amount = new Decimal(
-              this.selectedAccount.amount!
-            )
-              .plus(newTransaction.amount)
-              .toNumber();
-          } else if (newTransaction.type === 'Expense') {
-            this.selectedAccount.amount = new Decimal(
-              this.selectedAccount.amount!
-            )
-              .minus(newTransaction.amount)
-              .toNumber();
-          }
-        })
-      )
-      .subscribe(() => {
-        this.transactionCreateForm.reset();
-        this.mainService.sidebarClose();
-      });
+    if (this.transactionCreateForm.valid) {
+      this.transactionsSevice
+        .createTransaction(newTransaction)
+        .pipe(
+          take(1),
+          tap((data) => {
+            if (newTransaction.type === 'Income') {
+              this.selectedAccount.amount = new Decimal(
+                this.selectedAccount.amount!
+              )
+                .plus(newTransaction.amount)
+                .toNumber();
+            } else if (newTransaction.type === 'Expense') {
+              this.selectedAccount.amount = new Decimal(
+                this.selectedAccount.amount!
+              )
+                .minus(newTransaction.amount)
+                .toNumber();
+            }
+          })
+        )
+        .subscribe(() => {
+          this.transactionCreateForm.reset();
+          this.mainService.sidebarClose();
+        });
+    }
   }
 
   ngOnDestroy(): void {

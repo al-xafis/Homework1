@@ -38,8 +38,15 @@ export class AccountItemComponent implements OnInit {
     }
   }
 
+  // numberWithCommas(amount: number) {
+  //   return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // }
   numberWithCommas(amount: number) {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    let formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+    return formatter.format(amount).replace('$', '');
   }
 
   openAccountDetails() {

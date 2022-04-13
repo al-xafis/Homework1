@@ -36,13 +36,15 @@ export class CreateAccountSidenavComponent implements OnInit, OnDestroy {
       currency: value.currency,
       description: value.description,
     };
-    console.log(newAccount);
-    this.createSubscription = this.accountsService
-      .createAccount(newAccount)
-      .subscribe((data) => {
-        this.accountCreateForm.reset();
-        this.closeSidebar();
-      });
+
+    if (this.accountCreateForm.valid) {
+      this.createSubscription = this.accountsService
+        .createAccount(newAccount)
+        .subscribe((data) => {
+          this.accountCreateForm.reset();
+          this.closeSidebar();
+        });
+    }
   }
 
   sidebarOpen() {

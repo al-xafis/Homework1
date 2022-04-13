@@ -22,6 +22,10 @@ export class TransactionsService {
   transactions: Transaction[] = [];
   transactionsChanged$ = new BehaviorSubject<Transaction[]>([]);
   transactionLength = new Subject<number>();
+  selectedTransaction$: Subject<Transaction> = new BehaviorSubject<Transaction>(
+    {} as Transaction
+  );
+
   user = JSON.parse(localStorage.getItem('user') ?? '');
 
   constructor(private http: HttpClient) {}
@@ -88,5 +92,13 @@ export class TransactionsService {
       transaction.title?.toLowerCase().includes(str)
     );
     this.transactionsChanged$.next(filteredTransactions);
+  }
+
+  selectTransaction(transaction: Transaction) {
+    this.selectedTransaction$.next(transaction);
+  }
+
+  getSelectedTransction() {
+    return this.selectedTransaction$.asObservable();
   }
 }

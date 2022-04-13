@@ -24,14 +24,21 @@
   <app-create-account-sidenav
     *ngIf="accountCreateOpen"
   ></app-create-account-sidenav>
-  <app-read-account-sidenav *ngIf="accountReadOpen"></app-read-account-sidenav>
-  <div (click)="closeSidebar()" [ngClass]="open ? 'dark-overlay' : ''"></div>
   <div
     (click)="closeAccCreateSidebar()"
     [ngClass]="accountCreateOpen ? 'dark-overlay' : ''"
   ></div>
+  <div (click)="closeSidebar()" [ngClass]="open ? 'dark-overlay' : ''"></div>
+  <app-read-account-sidenav *ngIf="accountReadOpen"></app-read-account-sidenav>
   <div
     (click)="closeAccReadSidebar()"
     [ngClass]="accountReadOpen ? 'dark-overlay' : ''"
+  ></div>
+  <app-read-transaction-sidenav
+    *ngIf="transactionReadOpen"
+  ></app-read-transaction-sidenav>
+  <div
+    (click)="closeTrReadSidebar()"
+    [ngClass]="transactionReadOpen ? 'dark-overlay' : ''"
   ></div>
 </div>

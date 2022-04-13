@@ -28,6 +28,9 @@ export class FirstComponent implements OnInit, OnDestroy {
   accountReadOpen!: boolean;
   sidebarAccReadSub!: Subscription;
 
+  transactionReadOpen!: boolean;
+  sidebarTrReadSub!: Subscription;
+
   constructor(
     private accountService: AccountsService,
     public dialog: MatDialog,
@@ -59,6 +62,12 @@ export class FirstComponent implements OnInit, OnDestroy {
         this.accountReadOpen = open;
       });
 
+    this.sidebarTrReadSub = this.mainService
+      .transactionReadSidebarState()
+      .subscribe((open) => {
+        this.transactionReadOpen = open;
+      });
+
     this.transactionService.transactionLength.subscribe((length) => {
       this.transactionLength = length;
     });
@@ -84,10 +93,15 @@ export class FirstComponent implements OnInit, OnDestroy {
     this.mainService.closeReadAccountSidebar();
   }
 
+  closeTrReadSidebar() {
+    this.mainService.closeTransactionReadSidebar();
+  }
+
   ngOnDestroy(): void {
     this.lengthSubscription.unsubscribe();
     this.sidebarSubscription.unsubscribe();
     this.sidebarAccCreateSub.unsubscribe();
     this.sidebarAccReadSub.unsubscribe();
+    this.sidebarTrReadSub.unsubscribe();
   }
 }

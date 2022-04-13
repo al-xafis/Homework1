@@ -9,6 +9,7 @@ import { AddControlComponent } from './components/add-control/add-control.compon
 import { CreateTransactionSidenavComponent } from './create-transaction-sidenav/create-transaction-sidenav.component';
 import { CreateAccountSidenavComponent } from './create-account-sidenav/create-account-sidenav.component';
 import { ReadAccountSidenavComponent } from './read-account-sidenav/read-account-sidenav.component';
+import { ReadTransactionSidenavComponent } from './read-transaction-sidenav/read-transaction-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ReadAccountSidenavComponent } from './read-account-sidenav/read-account
     CreateTransactionSidenavComponent,
     CreateAccountSidenavComponent,
     ReadAccountSidenavComponent,
+    ReadTransactionSidenavComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [
@@ -27,6 +29,7 @@ import { ReadAccountSidenavComponent } from './read-account-sidenav/read-account
     CreateTransactionSidenavComponent,
     CreateAccountSidenavComponent,
     ReadAccountSidenavComponent,
+    ReadTransactionSidenavComponent,
   ],
 })
 export class LayoutModule {}
