@@ -1,9 +1,9 @@
 export interface Account {
   title: string;
-  amount: number;
+  amount?: number;
   currency: string;
   description: string;
-  createdAt: string;
-  updatedAt: string;
-  _id: string;
+  createdAt?: string;
+  updatedAt?: string;
+  _id?: string;
 }

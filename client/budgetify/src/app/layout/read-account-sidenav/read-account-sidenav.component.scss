@@ -1,0 +1,97 @@
+@use "src/variables" as var;
+
+.sidebar {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  width: 500px;
+  height: 100%;
+  color: var.$black;
+
+  &__title {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  &__container {
+    // position: relative;
+    padding: 40px 35px;
+  }
+
+  &__details {
+    font-size: 18px;
+
+    [class$="box"] {
+      display: flex;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var.$black;
+      margin-bottom: 20px;
+    }
+
+    &__title {
+    }
+    &__title__box {
+    }
+    &__label__title {
+      font-weight: 700;
+      flex-basis: 180px;
+    }
+
+    &__balance {
+    }
+    &__balance__box {
+    }
+    &__label__balance {
+      font-weight: 700;
+      flex-basis: 180px;
+    }
+
+    &__currency {
+    }
+    &__currency__box {
+    }
+    &__label__currency {
+      font-weight: 700;
+      flex-basis: 180px;
+    }
+
+    &__description {
+    }
+    &__description__box {
+      padding-bottom: 0 !important;
+      border-bottom: none !important;
+      margin-bottom: none !important;
+    }
+    &__label__description {
+      font-weight: 700;
+      flex-basis: 180px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__button__cancel {
+    font-size: 18px;
+    position: absolute;
+    bottom: 40px;
+    right: 35px;
+  }
+
+  &__form {
+    &__title {
+      font-size: 16px;
+      &__input {
+      }
+    }
+    &__button {
+      position: absolute;
+      bottom: 30px;
+      right: 35px;
+      &__cancel {
+        font-size: 18px;
+        margin-right: 20px;
+      }
+    }
+  }
+}

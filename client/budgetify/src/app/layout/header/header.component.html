@@ -16,13 +16,16 @@
           <li class="navbar__list__item">
             <a href="/" class="navbar__list__item__link">Statistic</a>
           </li>
-          <li class="navbar__list__item link-active">
+          <li
+            class="navbar__list__item link-active"
+            *ngIf="user.role === 'ADMIN'"
+          >
             <a href="/" class="navbar__list__item__link">Admin</a>
           </li>
         </ul>
         <div class="navbar__profile" (click)="logout()">
           <img src="../../../assets/user.svg" alt="user profile" />
-          <p class="navbar__profile__username">Maksim Verenich</p>
+          <p class="navbar__profile__username">{{ fullName }}</p>
         </div>
       </div>
     </div>

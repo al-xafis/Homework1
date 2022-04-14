@@ -5,9 +5,9 @@ const User = require("../models/users");
 
 const router = express.Router();
 
-router.post("/:email", async (req, res) => {
+router.post("/", async (req, res) => {
   const { title, currency, description } = req.body;
-  const email = req.params.email;
+  const email = req.query.email;
 
   try {
     const user = await User.findOne({ email });
@@ -18,7 +18,6 @@ router.post("/:email", async (req, res) => {
       description: description,
     });
     await user.save();
-    console.log(user.accounts);
 
     res.status(201).json(user.accounts);
   } catch (err) {
@@ -26,14 +25,15 @@ router.post("/:email", async (req, res) => {
   }
 });
 
-router.get("/:email", async (req, res) => {
-  const email = req.params.email;
+router.get("/", async (req, res) => {
+  const email = req.query.email;
 
   try {
     const user = await User.findOne({ email });
 
     res.status(201).json(user.accounts);
   } catch (err) {
+    console.log(email);
     res.status(400).json(err);
   }
 });

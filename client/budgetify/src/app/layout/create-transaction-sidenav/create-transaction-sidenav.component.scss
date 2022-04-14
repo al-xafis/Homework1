@@ -1,0 +1,88 @@
+@use "src/variables" as var;
+
+.sidebar {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  width: 500px;
+  height: 100%;
+  color: var.$black;
+
+  &__title {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  &__container {
+    // position: relative;
+    padding: 40px 35px;
+  }
+
+  &__form {
+    &__transaction {
+      margin-bottom: 38px;
+      &__circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var.$expense;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
+        &--income {
+          @extend .sidebar__form__transaction__circle;
+          background-color: var.$income;
+        }
+      }
+    }
+    &__title {
+      font-size: 16px;
+      &__input {
+      }
+    }
+    &__categories {
+    }
+    &__buttons {
+      position: absolute;
+      bottom: 30px;
+      right: 35px;
+      &__cancel {
+        font-size: 18px;
+        margin-right: 20px;
+      }
+      &__create {
+        padding: 8px 22px;
+        border-radius: 10px;
+        background-color: var.$cyan;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  font-size: 15px;
+}
+
+mat-button-toggle-group {
+  border: none;
+}
+
+mat-button-toggle {
+  border: 2px solid #373737 !important;
+  border-radius: 10px;
+  opacity: 0.4;
+  margin-right: 5px;
+  width: 140px;
+  font-size: 18px;
+  color: inherit;
+}
+
+.mat-button-toggle-checked {
+  opacity: 1;
+  background-color: #f9f9f9;
+}

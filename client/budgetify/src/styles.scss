@@ -1,3 +1,5 @@
+@use "src/variables" as var;
+
 @import "~@angular/material/theming";
 $custom-typography: mat-typography-config(
   $font-family: "Space Grotesk, sans-serif",
@@ -31,6 +33,9 @@ p {
 }
 
 button {
+  cursor: pointer;
+  font-family: inherit;
+  color: var.$black;
   border: none;
   background-color: transparent;
   &:disabled {

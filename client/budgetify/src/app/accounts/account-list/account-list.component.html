@@ -1,6 +1,8 @@
 <app-account-item
-  *ngFor="let account of accounts"
+  *ngFor="let account of accounts; let i = index; trackBy: trackByFn"
   [account]="account"
   [accountLength]="accounts?.length"
+  [selectedAccount]="selectedAccount"
+  (click)="selectAccount(account)"
 ></app-account-item>
 <app-account-item-dummy *ngIf="accounts?.length < 1"></app-account-item-dummy>

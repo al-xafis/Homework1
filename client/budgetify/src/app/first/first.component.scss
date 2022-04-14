@@ -1,0 +1,25 @@
+.section__main {
+  background-color: #eceded;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.transactions {
+  width: 570px;
+}
+
+.controls {
+  width: 235px;
+}
+
+.dark-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}

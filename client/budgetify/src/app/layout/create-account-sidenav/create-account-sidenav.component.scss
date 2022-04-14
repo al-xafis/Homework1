@@ -1,0 +1,50 @@
+@use "src/variables" as var;
+
+.sidebar {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  width: 500px;
+  height: 100%;
+  color: var.$black;
+
+  &__title {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  &__container {
+    // position: relative;
+    padding: 40px 35px;
+  }
+
+  &__form {
+    &__title {
+      font-size: 16px;
+      &__input {
+      }
+    }
+    &__buttons {
+      position: absolute;
+      bottom: 30px;
+      right: 35px;
+      &__cancel {
+        font-size: 18px;
+        margin-right: 20px;
+      }
+      &__create {
+        padding: 8px 22px;
+        border-radius: 10px;
+        background-color: var.$cyan;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  font-size: 15px;
+}
