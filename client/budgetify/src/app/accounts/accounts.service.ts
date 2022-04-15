@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators';
 })
 export class AccountsService {
   url = 'http://localhost:3000/account/';
-  user = JSON.parse(localStorage.getItem('user') ?? '');
+  user = JSON.parse(localStorage.getItem('user') ?? '{}');
   queryParams = new HttpParams().append('email', String(this.user.email));
 
   accounts: Account[] = [];

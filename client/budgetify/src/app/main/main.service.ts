@@ -8,7 +8,7 @@ export class MainService {
   openCreate$ = new BehaviorSubject(false);
   openAccountCreate$ = new BehaviorSubject(false);
   openAccountRead$ = new BehaviorSubject(false);
-  openTransactionRead$ = new BehaviorSubject(true);
+  openTransactionRead$ = new BehaviorSubject(false);
 
   sidebarOpen() {
     this.openCreate$.next(!this.openCreate$.value);
