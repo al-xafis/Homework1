@@ -1,0 +1,39 @@
+@use "src/variables" as var;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.categories__btn {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 235px;
+  background-color: #f9f9f9;
+  margin-bottom: 16px;
+  padding: 8px 11px;
+  border-radius: 10px;
+  gap: 7px;
+  font-size: 20px;
+}
+
+.income-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var.$income;
+}
+
+.expense-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var.$expense;
+}

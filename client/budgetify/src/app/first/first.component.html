@@ -5,10 +5,26 @@
       <app-search-transaction
         *ngIf="transactionLength > 0"
       ></app-search-transaction>
+      <div class="sort" (click)="sortByDate()" *ngIf="transactionLength > 0">
+        <img
+          class="sort-icon"
+          src="../../assets/sort.svg"
+          alt="filter-by-date"
+        />
+        <p class="sort__title">Transaction date</p>
+      </div>
       <app-transaction-list></app-transaction-list>
     </div>
     <div class="controls">
       <div class="controls__container" *ngIf="accountLength > 0">
+        <app-income-sort
+          *ngIf="transactionLength > 0"
+          (click)="filterIncome()"
+        ></app-income-sort>
+        <app-expense-sort
+          *ngIf="transactionLength > 0"
+          (click)="filterExpense()"
+        ></app-expense-sort>
         <app-add-control
           [label]="addTransaction"
           (click)="openSidebar()"
@@ -40,5 +56,17 @@
   <div
     (click)="closeTrReadSidebar()"
     [ngClass]="transactionReadOpen ? 'dark-overlay' : ''"
+  ></div>
+  <app-edit-transaction-sidenav
+    *ngIf="transactionEditOpen"
+  ></app-edit-transaction-sidenav>
+  <div
+    (click)="closeTrEditSidebar()"
+    [ngClass]="transactionEditOpen ? 'dark-overlay' : ''"
+  ></div>
+  <app-edit-account-sidenav *ngIf="accountEditOpen"></app-edit-account-sidenav>
+  <div
+    (click)="closeAccEditSidebar()"
+    [ngClass]="accountEditOpen ? 'dark-overlay' : ''"
   ></div>
 </div>

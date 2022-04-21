@@ -8,4 +8,6 @@ export interface Transaction {
   payee?: string;
   date: any;
   _id?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

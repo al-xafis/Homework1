@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Account = require("./accounts");
+const Category = require("./categories");
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,6 +30,7 @@ const userSchema = new mongoose.Schema(
       },
     },
     accounts: [Account],
+    categories: [Category],
   },
   {
     timestamps: true,
@@ -36,3 +38,30 @@ const userSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("User", userSchema);
+
+// {
+//   type: String,
+//   default: [
+//     "Food",
+//     "Transportation",
+//     "Housing",
+//     "Education",
+//     "Shopping",
+//     "Kids",
+//     "Entertainment",
+//     "Health and beauty",
+//     "Pet",
+//     "Internet",
+//     "Mobile",
+//   ],
+// },
+// {
+//   type: String,
+//   default: [
+//     "Salary",
+//     "Debt repayment",
+//     "Gift",
+//     "Rental income",
+//     "Premium/bonus",
+//   ],
+// },

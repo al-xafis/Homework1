@@ -8,7 +8,9 @@ export class MainService {
   openCreate$ = new BehaviorSubject(false);
   openAccountCreate$ = new BehaviorSubject(false);
   openAccountRead$ = new BehaviorSubject(false);
-  openTransactionRead$ = new BehaviorSubject(true);
+  openAccountEdit$ = new BehaviorSubject(false);
+  openTransactionRead$ = new BehaviorSubject(false);
+  OpenTransactionEdit$ = new BehaviorSubject(false);
 
   sidebarOpen() {
     this.openCreate$.next(!this.openCreate$.value);
@@ -22,8 +24,16 @@ export class MainService {
     this.openAccountRead$.next(!this.openAccountRead$.value);
   }
 
+  openEditAccountSidebar() {
+    this.openAccountEdit$.next(true);
+  }
+
   openTransactionReadSidebar() {
     this.openTransactionRead$.next(!this.openTransactionRead$.value);
+  }
+
+  openTransactionEditSidebar() {
+    this.OpenTransactionEdit$.next(!this.OpenTransactionEdit$.value);
   }
 
   sidebarClose() {
@@ -38,8 +48,16 @@ export class MainService {
     this.openAccountRead$.next(false);
   }
 
+  closeEditAccountSidebar() {
+    this.openAccountEdit$.next(false);
+  }
+
   closeTransactionReadSidebar() {
     this.openTransactionRead$.next(false);
+  }
+
+  closeTransactionEditSidebar() {
+    this.OpenTransactionEdit$.next(false);
   }
 
   sidebarState() {
@@ -54,8 +72,16 @@ export class MainService {
     return this.openAccountRead$.asObservable();
   }
 
+  accountEditSidebarState() {
+    return this.openAccountEdit$.asObservable();
+  }
+
   transactionReadSidebarState() {
     return this.openTransactionRead$.asObservable();
+  }
+
+  transactionEditSidebarState() {
+    return this.OpenTransactionEdit$.asObservable();
   }
 
   constructor() {}

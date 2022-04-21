@@ -1,7 +1,21 @@
 <aside class="sidebar">
   <div class="sidebar__container">
-    <header>
-      <h1 class="sidebar__title">Account Information</h1>
+    <header class="sidebar__header">
+      <h1 class="sidebar__header__title">Account Information</h1>
+      <div class="sidebar__header__controls">
+        <img
+          (click)="openEditSidebar()"
+          class="edit-icon"
+          src="../../../assets/pen.svg"
+          alt="edit"
+        />
+        <img
+          (click)="deleteAccount()"
+          class="delete-icon"
+          src="../../../assets/trash.svg"
+          alt="delete"
+        /><img class="close-icon" src="../../../assets/cross.svg" alt="close" />
+      </div>
     </header>
     <div class="sidebar__details">
       <div class="sidebar__details__title__box">
@@ -16,11 +30,13 @@
         <p class="sidebar__details__label__currency">Currency:</p>
         <p class="sidebar__details__currency">{{ currency }}</p>
       </div>
-      <div class="sidebar__details__description__box">
-        <p class="sidebar__details__label__description">Description:</p>
-        <p class="sidebar__details__description">
-          {{ account.description }}
-        </p>
+      <div *ngIf="account.description">
+        <div class="sidebar__details__description__box">
+          <p class="sidebar__details__label__description">Description:</p>
+          <p class="sidebar__details__description">
+            {{ account.description }}
+          </p>
+        </div>
       </div>
     </div>
     <button class="sidebar__button__cancel" (click)="closeSidebar()">

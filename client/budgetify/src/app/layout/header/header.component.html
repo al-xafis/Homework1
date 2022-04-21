@@ -2,13 +2,23 @@
   <nav>
     <div class="container">
       <div class="navbar">
-        <a href="/" class="navbar__brand">Budgetify</a>
+        <a routerLink="/" class="navbar__brand">Budgetify</a>
         <ul class="navbar__list">
           <li class="navbar__list__item">
-            <a href="/" class="navbar__list__item__link">Categories</a>
+            <a
+              routerLink="/categories"
+              routerLinkActive="active"
+              class="navbar__list__item__link"
+              >Categories</a
+            >
           </li>
           <li class="navbar__list__item">
-            <a href="/" class="navbar__list__item__link">Subscription</a>
+            <a
+              routerLink="/subscriptions"
+              routerLinkActive="active"
+              class="navbar__list__item__link"
+              >Subscription</a
+            >
           </li>
           <li class="navbar__list__item">
             <a href="/" class="navbar__list__item__link">Obligatory</a>
@@ -16,10 +26,7 @@
           <li class="navbar__list__item">
             <a href="/" class="navbar__list__item__link">Statistic</a>
           </li>
-          <li
-            class="navbar__list__item link-active"
-            *ngIf="user.role === 'ADMIN'"
-          >
+          <li class="navbar__list__item" *ngIf="user.role === 'ADMIN'">
             <a href="/" class="navbar__list__item__link">Admin</a>
           </li>
         </ul>

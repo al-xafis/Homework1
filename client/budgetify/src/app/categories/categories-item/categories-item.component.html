@@ -1,0 +1,42 @@
+<div
+  [ngStyle]="{
+    border:
+      category.type === 'Expense' ? '2px solid #ee3f19' : '2px solid #21c206'
+  }"
+  class="category__wrapper"
+>
+  <div class="category">
+    <h3 class="category__name" *ngIf="!editMode">{{ category.title }}</h3>
+    <input
+      *ngIf="editMode"
+      class="category__name__input"
+      type="text"
+      value="{{ category.title }}"
+      #name
+    />
+    <div class="category__controls">
+      <img
+        *ngIf="!editMode"
+        (click)="toggleEdit()"
+        class="edit-icon"
+        src="../../../assets/pen.svg"
+        alt="edit"
+      />
+      <img
+        *ngIf="editMode"
+        (click)="editCategory()"
+        class="check-icon"
+        src="../../../assets/check.svg"
+        alt="save"
+      />
+      <img
+        (click)="deleteCategory()"
+        class="delete-icon"
+        src="../../../assets/trash.svg"
+        alt="delete"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- [ngStyle]="{ width: width }" -->

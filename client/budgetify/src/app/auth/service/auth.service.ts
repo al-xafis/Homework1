@@ -36,6 +36,7 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('expiresIn');
     localStorage.removeItem('idToken');
+    location.reload();
   }
 
   private setSession(res: any) {

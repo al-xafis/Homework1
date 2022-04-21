@@ -1,0 +1,30 @@
+@use "src/variables" as var;
+
+.expense {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 7px 11px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  &__circle {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var.$expense;
+    &__icon {
+    }
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 20px;
+  }
+}

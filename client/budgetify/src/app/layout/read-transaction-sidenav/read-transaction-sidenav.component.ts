@@ -29,10 +29,10 @@ export class ReadTransactionSidenavComponent implements OnInit, OnDestroy {
       .getSelectedTransction()
       .subscribe((transaction) => {
         this.transaction = transaction;
-        console.log(transaction);
       });
 
     this.accountService.getSelectedAccount().subscribe((acc) => {
+      this.selectedAccount = acc;
       this.currency = acc?.currency;
       switch (this.currency) {
         case 'USD':
@@ -60,8 +60,21 @@ export class ReadTransactionSidenavComponent implements OnInit, OnDestroy {
     return formatter.format(amount).replace('$', '');
   }
 
+  deleteTransaction() {
+    this.transactionService.deleteTransaction({
+      ...this.transaction,
+      accountTitle: this.selectedAccount.title,
+    });
+    this.closeSidebar();
+  }
+
   closeSidebar() {
     this.mainService.closeTransactionReadSidebar();
+  }
+
+  openEditTransaction() {
+    this.closeSidebar();
+    this.mainService.openTransactionEditSidebar();
   }
 
   ngOnDestroy(): void {

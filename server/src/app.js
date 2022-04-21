@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
 const accountRouter = require("./routes/account");
 const transactionRouter = require("./routes/transaction");
+const categoriesRouter = require("./routes/categories");
+const subscriptionRouter = require("./routes/subscription");
 
 mongoose.connect(process.env.MONGOURI, () => {
   console.log("connected to DB");
@@ -23,5 +25,9 @@ app.use("/", authRouter);
 app.use("/account", accountRouter);
 
 app.use("/transaction", transactionRouter);
+
+app.use("/categories", categoriesRouter);
+
+app.use("/subscription", subscriptionRouter);
 
 module.exports = { app };

@@ -7,16 +7,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccountsModule } from '../accounts/accounts.module';
 import { FirstComponent } from '../first/first.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { CategoriesComponent } from '../categories/categories.component';
+import { CategoriesModule } from '../categories/categories.module';
+import { SubscriptionComponent } from '../subscription/subscription.component';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     component: MainComponent,
     canActivate: [AuthGuard],
     children: [
       {
-        path: '',
+        path: 'main',
         component: FirstComponent,
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+      },
+      {
+        path: 'subscriptions',
+        component: SubscriptionComponent,
       },
     ],
   },
@@ -29,6 +40,7 @@ const routes: Routes = [
     SharedModule,
     LayoutModule,
     AccountsModule,
+    CategoriesModule,
     RouterModule.forChild(routes),
   ],
   exports: [MainComponent],
