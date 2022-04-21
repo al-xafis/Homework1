@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const Transaction = require("./transactions");
+const Subscription = require("./subscriptions");
 
 const accountSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true,
-      unique: true,
     },
     amount: {
       type: Number,
@@ -18,10 +18,13 @@ const accountSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     transactions: {
       type: [Transaction],
+      default: [],
+    },
+    subscriptions: {
+      type: [Subscription],
       default: [],
     },
   },

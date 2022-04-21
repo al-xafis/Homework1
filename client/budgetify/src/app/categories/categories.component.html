@@ -1,0 +1,32 @@
+<div class="secion__categories">
+  <div class="container">
+    <div class="categories-col-1">
+      <app-search-categories></app-search-categories>
+      <div class="categories__list">
+        <app-categories-list></app-categories-list>
+      </div>
+    </div>
+    <div class="categories-col-2">
+      <div class="categories__controls">
+        <button class="categories__btn income" (click)="filterIncome()">
+          <div class="income-circle">
+            <img src="../../assets/Arrowdown.svg" alt="Income" />
+          </div>
+          Income
+        </button>
+        <button class="categories__btn expense" (click)="filterExpense()">
+          <div class="expense-circle">
+            <img src="../../assets/Arrowup.svg" alt="Expense" />
+          </div>
+          Expense
+        </button>
+        <app-add-category-control
+          (click)="openSidebar()"
+          label="Add Category"
+        ></app-add-category-control>
+      </div>
+    </div>
+  </div>
+</div>
+<app-create-category-sidenav *ngIf="open"></app-create-category-sidenav>
+<div (click)="closeSidebar()" [ngClass]="open ? 'dark-overlay' : ''"></div>

@@ -1,0 +1,25 @@
+<div class="section__main">
+  <div class="container">
+    <app-accounts></app-accounts>
+    <div class="subscriptions">
+      <app-search-transaction></app-search-transaction>
+      <app-subscription-list></app-subscription-list>
+    </div>
+    <div class="controls">
+      <div class="controls__container">
+        <app-add-control
+          [label]="'Add Subscription'"
+          (click)="openSubsCreateSidebar()"
+        ></app-add-control>
+        <!-- <app-add-control [label]="addAccount"></app-add-control> -->
+      </div>
+    </div>
+  </div>
+</div>
+<app-create-subscription-sidenav
+  *ngIf="subscriptionCreateOpen"
+></app-create-subscription-sidenav>
+<div
+  (click)="closeSubsCreateSidebar()"
+  [ngClass]="subscriptionCreateOpen ? 'dark-overlay' : ''"
+></div>

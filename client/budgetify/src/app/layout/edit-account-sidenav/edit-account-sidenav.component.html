@@ -1,0 +1,53 @@
+<aside class="sidebar">
+  <div class="sidebar__container">
+    <header>
+      <h1 class="sidebar__title">Edit Account</h1>
+    </header>
+    <form
+      class="sidebar__form"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="accountEditForm"
+    >
+      <div class="sidebar__form__title">
+        <mat-form-field
+          class="sidebar__form__title__input"
+          appearance="outline"
+        >
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__currency">
+        <mat-form-field
+          class="sidebar__form__currency__input"
+          appearance="outline"
+        >
+          <mat-label>Currency</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option value="USD">USD ($)</mat-option>
+            <mat-option value="EUR">EUR (€)</mat-option>
+            <mat-option value="RUB">RUB (₽)</mat-option>
+            <mat-option value="BYN">BYN (Br)</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__description">
+        <mat-form-field
+          class="sidebar__form__description__input"
+          appearance="outline"
+        >
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__buttons">
+        <button class="sidebar__form__buttons__cancel" (click)="closeSidebar()">
+          Cancel
+        </button>
+        <button type="submit" class="sidebar__form__buttons__create">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</aside>

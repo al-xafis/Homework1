@@ -49,4 +49,7 @@ export class TransactionListComponent implements OnInit {
         this.transactions = transactions;
       });
   }
+  // trackByFn(index: number, transaction: Transaction) {
+  //   return transaction.amount;
+  // }
 }

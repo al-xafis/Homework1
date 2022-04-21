@@ -1,0 +1,97 @@
+<aside class="sidebar">
+  <div class="sidebar__container">
+    <header>
+      <h1 class="sidebar__title">Create Subscription</h1>
+    </header>
+    <form
+      class="sidebar__form"
+      (ngSubmit)="Submit()"
+      [formGroup]="subscriptionCreateForm"
+    >
+      <div class="sidebar__form__title">
+        <mat-form-field
+          class="sidebar__form__title__input"
+          appearance="outline"
+        >
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__categories">
+        <mat-form-field appearance="outline">
+          <mat-label>Categories</mat-label>
+          <mat-select formControlName="categories" multiple>
+            <mat-select-trigger>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="
+                    let category of this.subscriptionCreateForm.value.categories
+                  "
+                  [removable]="true"
+                  (removed)="onToppingRemoved(category)"
+                >
+                  {{ category }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-select-trigger>
+
+            <mat-option
+              *ngFor="let category of categoryList"
+              [value]="category"
+              >{{ category }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__amount">
+        <mat-form-field
+          class="sidebar__form__amount__input"
+          appearance="outline"
+        >
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="amount" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__date">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              formControlName="initialDate"
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              formControlName="lastDate"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__description">
+        <mat-form-field
+          class="sidebar__form__description__input"
+          appearance="outline"
+        >
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+      </div>
+      <div class="sidebar__form__buttons">
+        <button (click)="closeSidebar()" class="sidebar__form__buttons__cancel">
+          Cancel
+        </button>
+        <button type="submit" class="sidebar__form__buttons__create">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</aside>

@@ -10,9 +10,23 @@
   height: 100%;
   color: var.$black;
 
-  &__title {
-    font-size: 28px;
-    margin-bottom: 32px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 26px;
+
+    &__title {
+      font-size: 26px;
+    }
+
+    &__controls {
+      display: flex;
+      gap: 5px;
+
+      img {
+        cursor: pointer;
+      }
+    }
   }
 
   &__container {
@@ -93,5 +107,20 @@
         margin-right: 20px;
       }
     }
+  }
+
+  .edit-icon {
+    max-width: auto;
+    height: 32px;
+  }
+
+  .delete-icon {
+    max-width: auto;
+    height: 30px;
+  }
+
+  .close-icon {
+    max-width: auto;
+    height: 31px;
   }
 }

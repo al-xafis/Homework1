@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { auth } = require("../passport");
 const { adminGuard } = require("../middlewares/guard");
 const User = require("../models/users");
+const Category = require("../models/categories");
 
 const router = express.Router();
 
@@ -37,14 +38,34 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
+    let defaultCategories = [
+      { type: "Expense", title: "Food" },
+      { type: "Expense", title: "Transportation" },
+      { type: "Expense", title: "Housing" },
+      { type: "Expense", title: "Education" },
+      { type: "Expense", title: "Shopping" },
+      { type: "Expense", title: "Kids" },
+      { type: "Expense", title: "Entertainment" },
+      { type: "Expense", title: "Health and beauty" },
+      { type: "Expense", title: "Pet" },
+      { type: "Expense", title: "Internet" },
+      { type: "Expense", title: "Mobile" },
+      { type: "Income", title: "Salary" },
+      { type: "Income", title: "Debt repayment" },
+      { type: "Income", title: "Gift" },
+      { type: "Income", title: "Rental income" },
+      { type: "Income", title: "Premium/bonus" },
+    ];
+
     const user = await User.create({
       email: req.body.email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       password: bcrypt.hashSync(req.body.password, 10),
-
       role: req.body.role,
+      categories: defaultCategories,
     });
+
     res.status(201).json(user);
   } catch (err) {
     console.log(err);

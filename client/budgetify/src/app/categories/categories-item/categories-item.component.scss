@@ -1,0 +1,60 @@
+@use "src/variables" as var;
+
+.category {
+  &__wrapper {
+    display: inline-block;
+    border: 2px solid var.$income;
+    border-radius: 10px;
+  }
+
+  padding: 15px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+
+  &__name {
+    font-size: 20px;
+    margin: 0;
+
+    &__input {
+      width: 150px;
+      background-color: var.$background;
+      border: none;
+      border-bottom: 1px solid var.$black;
+      font-size: 20px;
+      font-family: inherit;
+      color: inherit;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .edit-icon {
+    width: auto;
+    height: 21px;
+    margin-right: 6px;
+    cursor: pointer;
+  }
+
+  .delete-icon {
+    width: auto;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .check-icon {
+    width: auto;
+    height: 22px;
+    margin-right: 6px;
+    cursor: pointer;
+  }
+}

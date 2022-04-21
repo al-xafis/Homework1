@@ -40,6 +40,16 @@ export class ReadAccountSidenavComponent implements OnInit, OnDestroy {
       });
   }
 
+  deleteAccount() {
+    this.accountService.deleteAccount(this.account).subscribe();
+    this.closeSidebar();
+  }
+
+  openEditSidebar() {
+    this.closeSidebar();
+    this.mainService.openEditAccountSidebar();
+  }
+
   closeSidebar() {
     this.mainService.closeReadAccountSidebar();
   }

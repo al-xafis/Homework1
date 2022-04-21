@@ -1,6 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import Decimal from 'decimal.js';
+import {
   BehaviorSubject,
   catchError,
   delay,
@@ -28,7 +34,23 @@ export class TransactionsService {
 
   user = JSON.parse(localStorage.getItem('user') ?? '');
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private accountsService: AccountsService,
+    private _snackBar: MatSnackBar
+  ) {}
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: 'white-snackbar',
+    });
+  }
 
   createTransaction(newTransaction: Transaction) {
     const {
@@ -52,14 +74,14 @@ export class TransactionsService {
       )
       .pipe(
         tap((data) => {
-          console.log('shoot');
-          console.log(data);
-          this.transactions.push(newTransaction);
+          this.transactions.push(data);
           this.transactionsChanged$.next(this.transactions.slice());
           this.transactionLength.next(this.transactions.length);
         })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.openSnackBar('Transaction added successfully');
+      });
     return this.transactionsChanged$.asObservable();
   }
 
@@ -74,12 +96,117 @@ export class TransactionsService {
       })
       .pipe(
         tap((data) => {
-          this.transactions = data;
+          this.transactions = data.slice();
           this.transactionsChanged$.next(this.transactions.slice());
           this.transactionLength.next(this.transactions.length);
+          this.oldTransactions = data.slice();
         })
       )
       .subscribe();
+    return this.transactionsChanged$.asObservable();
+  }
+
+  editTransaction(newTransaction: Transaction) {
+    let queryParams = new HttpParams()
+      .append('email', String(this.user.email))
+      .append('accountTitle', String(newTransaction.accountTitle));
+    this.http
+      .put<Transaction>(this.url + '/' + newTransaction._id, newTransaction, {
+        params: queryParams,
+      })
+      .pipe(
+        tap((data) => {
+          // console.log(data);
+
+          let transaction = this.transactions.find((trans) => {
+            return trans._id === newTransaction._id;
+          });
+
+          let newTrans: Transaction[] = this.transactions.map((transaction) => {
+            if (transaction._id === data._id) {
+              return data;
+            }
+            return transaction;
+          });
+          this.transactions = newTrans;
+          this.transactionsChanged$.next(newTrans.slice());
+
+          let newAccounts = this.accountsService.accounts.map((account) => {
+            if (account.title === newTransaction.accountTitle) {
+              if (transaction?.type === newTransaction.type) {
+                if (newTransaction.type === 'Expense') {
+                  account.amount = new Decimal(account.amount!)
+                    .plus(transaction.amount)
+                    .toNumber();
+                  account.amount = new Decimal(account.amount)
+                    .minus(newTransaction.amount)
+                    .toNumber();
+                } else if (newTransaction.type === 'Income') {
+                  account.amount = new Decimal(account.amount!)
+                    .minus(transaction.amount)
+                    .toNumber();
+                  account.amount = new Decimal(account.amount)
+                    .plus(newTransaction.amount)
+                    .toNumber();
+                }
+              } else {
+                if (newTransaction.type === 'Expense') {
+                  account.amount = new Decimal(account.amount!)
+                    .minus(transaction!.amount)
+                    .toNumber();
+                  account.amount = new Decimal(account.amount)
+                    .minus(newTransaction.amount)
+                    .toNumber();
+                } else if (newTransaction.type === 'Income') {
+                  account.amount = new Decimal(account.amount!)
+                    .plus(transaction!.amount)
+                    .toNumber();
+                  account.amount = new Decimal(account.amount)
+                    .plus(newTransaction.amount)
+                    .toNumber();
+                }
+              }
+            }
+            return account;
+          });
+          this.accountsService.accountsChanged$.next(newAccounts);
+        })
+      )
+      .subscribe(() => {
+        this.openSnackBar('Transaction updated successfully');
+      });
+    return this.transactionsChanged$.asObservable();
+  }
+
+  deleteTransaction(newTransaction: Transaction) {
+    let queryParams = new HttpParams()
+      .append('email', String(this.user.email))
+      .append('accountTitle', String(newTransaction.accountTitle));
+    this.http
+      .delete<Transaction>(this.url + '/' + newTransaction._id, {
+        params: queryParams,
+      })
+      .pipe(
+        tap((data) => {
+          this.transactions = this.transactions.filter(
+            (transaction) => transaction._id !== newTransaction._id
+          );
+          this.transactionsChanged$.next(this.transactions.slice());
+          this.transactionLength.next(this.transactions.length);
+          let newAccounts = this.accountsService.accounts.map((account) => {
+            if (account.title === newTransaction.accountTitle) {
+              if (newTransaction.type === 'Income') {
+                account.amount! -= newTransaction.amount;
+              } else if (newTransaction.type === 'Expense') {
+                account.amount! += newTransaction.amount;
+              }
+            }
+            return account;
+          });
+          this.accountsService.accountsChanged$.next(newAccounts);
+        })
+      )
+      .subscribe(() => this.openSnackBar('Transaction deleted successfully'));
     return this.transactionsChanged$.asObservable();
   }
 
@@ -100,5 +227,57 @@ export class TransactionsService {
 
   getSelectedTransction() {
     return this.selectedTransaction$.asObservable();
+  }
+
+  showFilter: boolean = false;
+
+  filterIncome() {
+    if (this.showFilter === false) {
+      let filteredTransactions = this.transactions.filter((transaction) => {
+        return transaction.type === 'Income';
+      });
+      this.transactionsChanged$.next(filteredTransactions.slice());
+      this.showFilter = !this.showFilter;
+    } else {
+      this.transactionsChanged$.next(this.oldTransactions.slice());
+      this.showFilter = !this.showFilter;
+    }
+  }
+
+  filterExpense() {
+    if (this.showFilter === false) {
+      let filteredTransactions = this.transactions.filter((transaction) => {
+        return transaction.type === 'Expense';
+      });
+      this.transactionsChanged$.next(filteredTransactions.slice());
+      this.showFilter = !this.showFilter;
+    } else {
+      this.transactionsChanged$.next(this.oldTransactions.slice());
+      this.showFilter = !this.showFilter;
+    }
+  }
+
+  oldTransactions!: Transaction[];
+  sort: boolean = true;
+
+  sortByDate() {
+    if (this.sort === true) {
+      let sortedTransactions = this.transactions.sort(
+        (a: Transaction, b: Transaction) => {
+          if (a.date < b.date) {
+            return -1;
+          } else if (a.date > b.date) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      );
+      this.transactionsChanged$.next(sortedTransactions.slice());
+      this.sort = !this.sort;
+    } else {
+      this.transactionsChanged$.next(this.oldTransactions.slice());
+      this.sort = !this.sort;
+    }
   }
 }

@@ -41,6 +41,6 @@ export class AccountListComponent implements OnInit, OnDestroy {
   }
 
   trackByFn(index: number, account: Account) {
-    return account.amount;
+    return account.amount! + '-' + account.currency!;
   }
 }

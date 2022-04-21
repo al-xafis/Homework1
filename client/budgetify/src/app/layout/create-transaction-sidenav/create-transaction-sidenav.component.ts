@@ -7,6 +7,7 @@ import { AccountsService } from 'src/app/accounts/accounts.service';
 import { Account } from 'src/app/accounts/accounts.model';
 import { share, shareReplay, Subscription, take, tap } from 'rxjs';
 import Decimal from 'decimal.js';
+import { CategoriesService } from 'src/app/categories/categories.service';
 
 @Component({
   selector: 'app-create-transaction-sidenav',
@@ -20,37 +21,36 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
   selectedVal!: string;
   today = new Date();
 
-  incomeCategoryList: string[] = [
-    'Salary',
-    'Debt repayment',
-    'Gift',
-    'Rental income',
-    'Premium/bonus',
-  ];
+  incomeCategoryList: string[] = [];
 
-  expenseCategoryList: string[] = [
-    'Food',
-    'Transportation',
-    'Housing',
-    'Education',
-    'Shopping',
-    'Kids',
-    'Entertainment',
-    'Health and beauty',
-    'Pet',
-    'Internet',
-    'Mobile',
-  ];
+  expenseCategoryList: string[] = [];
 
   categoryList: string[] = this.expenseCategoryList;
 
   constructor(
     private mainService: MainService,
     private transactionsSevice: TransactionsService,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
+    this.categoriesService.getCategories().subscribe((data) => {
+      data.map((category) => {
+        if (
+          category.type === 'Income' &&
+          !this.incomeCategoryList.includes(category.title)
+        ) {
+          this.incomeCategoryList.push(category.title);
+        } else if (
+          category.type === 'Expense' &&
+          !this.categoryList.includes(category.title)
+        ) {
+          this.categoryList.push(category.title);
+        }
+      });
+    });
+
     this.selectedVal = 'Expense';
     this.selectedAccountSubscription = this.accountsService
       .getSelectedAccount()
@@ -72,10 +72,13 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
     });
 
     this.onChanges();
+    // this.onCategoryChange();
   }
 
   onChanges(): void {
     this.transactionCreateForm?.get('type')?.valueChanges.subscribe((val) => {
+      this.transactionCreateForm.controls['categories'].setValue([]);
+
       if (val === 'Income') {
         this.categoryList = this.incomeCategoryList;
       } else if (val === 'Expense') {
@@ -83,6 +86,20 @@ export class CreateTransactionSidenavComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // onCategoryChange(): void {
+  //   this.transactionCreateForm
+  //     ?.get('categories')
+  //     ?.valueChanges.subscribe((val) => {
+  //       if (
+  //         this.transactionCreateForm.controls['categories'].value.includes(
+  //           'Create new'
+  //         )
+  //       ) {
+  //         console.log('create');
+  //       }
+  //     });
+  // }
 
   onToppingRemoved(category: string) {
     const categories = this.transactionCreateForm.value.categories;

@@ -15,6 +15,19 @@
   width: 235px;
 }
 
+.sort {
+  cursor: pointer;
+  margin-top: -5px;
+  margin-left: 15px;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8.5px;
+  &__title {
+    font-size: 18px;
+  }
+}
+
 .dark-overlay {
   position: fixed;
   top: 0;
